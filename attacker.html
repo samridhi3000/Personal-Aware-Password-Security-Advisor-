@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tool-container">
+    <header class="tool-header">
+        <a href="{{ url_for('dashboard') }}" class="btn-back">← Back to Dashboard</a>
+        <h1>🎯 Attacker Guesses</h1>
+    </header>
+    
+    <div class="tool-card">
+        <div class="warning-banner">
+            <h3>⚠️ CRITICAL WARNING ⚠️</h3>
+            <p>These passwords are WEAK and easily guessed! NEVER use patterns like these!</p>
+        </div>
+        
+        <div class="attacker-content">
+            <pre class="result-text danger-text">{{ guesses }}</pre>
+        </div>
+        
+        <div class="info-box danger">
+            <h4>🚨 Why This Matters</h4>
+            <p>Attackers can crack these passwords in <strong>under 1 second</strong> using modern tools. They build custom dictionaries based on:</p>
+            <ul>
+                <li>Your publicly available information (social media, profiles)</li>
+                <li>Leaked password databases</li>
+                <li>Common patterns and substitutions</li>
+            </ul>
+            <p><strong>Always use random, unique passwords!</strong></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

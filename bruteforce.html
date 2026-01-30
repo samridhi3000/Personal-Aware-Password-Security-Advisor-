@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tool-container">
+    <header class="tool-header">
+        <a href="{{ url_for('dashboard') }}" class="btn-back">← Back to Dashboard</a>
+        <h1>⚡ Brute-Force Simulator</h1>
+    </header>
+    
+    <div class="tool-card">
+        <p class="tool-description">Learn how brute-force attacks work and how long they take to crack different passwords.</p>
+        
+        <div class="simulation-content">
+            <pre class="result-text">{{ simulation }}</pre>
+        </div>
+        
+        <div class="info-box">
+            <h4>💡 Key Takeaways</h4>
+            <ul>
+                <li>Longer passwords = exponentially more secure</li>
+                <li>Use all character types (lowercase, uppercase, digits, symbols)</li>
+                <li>Avoid personal information (attackers use dictionary attacks)</li>
+                <li>14+ characters recommended for strong security</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <h1>🔐 Password Security Dashboard</h1>
+        <p>Welcome, {{ username }}!</p>
+        <a href="{{ url_for('logout') }}" class="btn btn-logout">🚪 Logout</a>
+    </header>
+    
+    <div class="dashboard-grid">
+        <a href="{{ url_for('analyze') }}" class="dashboard-card card-green">
+            <div class="card-icon">🔍</div>
+            <h3>Password Analyzer</h3>
+            <p>Check if your password contains personal information</p>
+        </a>
+        
+        <a href="{{ url_for('bruteforce') }}" class="dashboard-card card-orange">
+            <div class="card-icon">⚡</div>
+            <h3>Brute-Force Simulator</h3>
+            <p>See how long it takes to crack passwords</p>
+        </a>
+        
+        <a href="{{ url_for('attacker') }}" class="dashboard-card card-pink">
+            <div class="card-icon">🎯</div>
+            <h3>Attacker Guesses</h3>
+            <p>Learn what attackers would try first</p>
+        </a>
+        
+        <a href="{{ url_for('generate_passwords') }}" class="dashboard-card card-blue">
+            <div class="card-icon">✨</div>
+            <h3>Strong Password Generator</h3>
+            <p>Generate cryptographically secure passwords</p>
+        </a>
+        
+        <a href="#" onclick="viewPersonalData()" class="dashboard-card card-purple">
+            <div class="card-icon">👤</div>
+            <h3>View Personal Data</h3>
+            <p>See your encrypted personal information</p>
+        </a>
+        
+        <a href="#" onclick="showAbout()" class="dashboard-card card-gray">
+            <div class="card-icon">ℹ️</div>
+            <h3>About</h3>
+            <p>Project information and credits</p>
+        </a>
+    </div>
+    
+    <!-- Personal Data Modal -->
+    <div id="personalDataModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>👤 Your Personal Data</h2>
+            <div id="personalDataContent" class="data-display"></div>
+        </div>
+    </div>
+    
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAboutModal()">&times;</span>
+            <h2>ℹ️ About This Project</h2>
+            <div class="about-content">
+                <h3>Personal-Aware Password Security Advisor</h3>
+                <p><strong>Version:</strong> 1.0 Web Edition</p>
+                <p><strong>Type:</strong> B.Tech Mini Project</p>
+                <p><strong>Domain:</strong> Cyber Security (CYS)</p>
+                
+                <h4>Features:</h4>
+                <ul>
+                    <li>✓ End-to-End Encryption (PBKDF2 + AES-128)</li>
+                    <li>✓ Two-Factor Authentication</li>
+                    <li>✓ GDPR Compliance</li>
+                    <li>✓ Personal Information Detection</li>
+                    <li>✓ Brute-Force Analysis</li>
+                    <li>✓ Educational Attack Demonstrations</li>
+                </ul>
+                
+                <h4>Technologies Used:</h4>
+                <ul>
+                    <li>Backend: Python Flask</li>
+                    <li>Frontend: HTML5, CSS3, JavaScript</li>
+                    <li>Encryption: cryptography library</li>
+                    <li>Database: JSON with encryption</li>
+                </ul>
+                
+                <p class="disclaimer">
+                    <strong>Disclaimer:</strong> This is an educational project for demonstrating cybersecurity concepts. Not intended for production use.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function viewPersonalData() {
+    try {
+        const response = await fetch('{{ url_for("personal_info") }}');
+        const data = await response.json();
+        
+        let html = '<div class="data-grid">';
+        for (const [key, value] of Object.entries(data)) {
+            if (key !== 'consent_given' && value) {
+                html += `
+                    <div class="data-item">
+                        <strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong>
+                        <span>${value}</span>
+                    </div>
+                `;
+            }
+        }
+        html += '</div>';
+        html += `
+            <div class="encryption-info">
+                <h4>🔒 Security Information</h4>
+                <p>✓ This data is encrypted with AES-128-CBC + HMAC</p>
+                <p>✓ Protected by PBKDF2 (100,000 iterations)</p>
+                <p>✓ Stored only on your device</p>
+            </div>
+        `;
+        
+        document.getElementById('personalDataContent').innerHTML = html;
+        document.getElementById('personalDataModal').style.display = 'block';
+    } catch (error) {
+        alert('Error loading personal data');
+    }
+}
+
+function closeModal() {
+    document.getElementById('personalDataModal').style.display = 'none';
+}
+
+function showAbout() {
+    document.getElementById('aboutModal').style.display = 'block';
+}
+
+function closeAboutModal() {
+    document.getElementById('aboutModal').style.display = 'none';
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    const personalModal = document.getElementById('personalDataModal');
+    const aboutModal = document.getElementById('aboutModal');
+    if (event.target == personalModal) {
+        personalModal.style.display = 'none';
+    }
+    if (event.target == aboutModal) {
+        aboutModal.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

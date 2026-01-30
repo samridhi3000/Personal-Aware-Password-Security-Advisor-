@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-page">
+    <div class="hero">
+        <div class="lock-icon">🔐</div>
+        <h1>Personal-Aware Password Security Advisor</h1>
+        <p class="subtitle">Enterprise-Grade Cybersecurity Tool</p>
+        <p class="description">
+            Analyze your passwords against personal information and learn about security best practices.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary">Get Started</a>
+            <a href="#features" class="btn btn-secondary">Learn More</a>
+        </div>
+    </div>
+    
+    <div id="features" class="features">
+        <h2>Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Password Analyzer</h3>
+                <p>Detect personal information in your passwords</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Brute-Force Simulator</h3>
+                <p>See how long it takes to crack passwords</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Attacker Guesses</h3>
+                <p>Learn what attackers would try first</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Strong Passwords</h3>
+                <p>Generate cryptographically secure passwords</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>End-to-End Encryption</h3>
+                <p>PBKDF2 + AES-128 encryption</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>2FA Authentication</h3>
+                <p>Two-factor authentication support</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>B.Tech Mini Project | Educational Purpose Only</p>
+        <p>Version 1.0 | © 2024</p>
+    </footer>
+</div>
+{% endblock %}

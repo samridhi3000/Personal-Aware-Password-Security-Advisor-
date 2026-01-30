@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="consent-container">
+    <div class="consent-card">
+        <h2>📋 Privacy & Consent Agreement</h2>
+        
+        <div class="consent-content">
+            <h3>Welcome to Personal-Aware Password Security Advisor!</h3>
+            
+            <p>This educational tool helps you understand password security by analyzing your passwords against your personal information. To provide this service, we need to collect and store some personal data.</p>
+            
+            <h4>WHAT WE COLLECT:</h4>
+            <ul>
+                <li>Personal information (name, date of birth, contact details)</li>
+                <li>Social media handles and usernames</li>
+                <li>Favorite words and common phrases you use</li>
+            </ul>
+            
+            <h4>HOW WE USE YOUR DATA:</h4>
+            <ul>
+                <li>Generate personalized security analysis</li>
+                <li>Demonstrate dictionary attack patterns</li>
+                <li>Create strong password recommendations</li>
+                <li>Educational demonstration purposes ONLY</li>
+            </ul>
+            
+            <h4>YOUR RIGHTS & GUARANTEES:</h4>
+            <ul>
+                <li>✓ All data is encrypted with AES-128-CBC + HMAC</li>
+                <li>✓ Protected by PBKDF2 (100,000 iterations)</li>
+                <li>✓ Data stored ONLY on your local device</li>
+                <li>✓ No cloud synchronization or transmission</li>
+                <li>✓ You can delete your data at any time</li>
+            </ul>
+            
+            <div class="disclaimer">
+                <strong>IMPORTANT DISCLAIMER:</strong>
+                This is a B.Tech cybersecurity mini-project for educational purposes. While we implement industry-standard encryption, this is NOT intended for storing real sensitive passwords or data.
+            </div>
+        </div>
+        
+        <form method="POST" class="consent-form">
+            <h4>Please read and accept all terms:</h4>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" name="consent1" required>
+                I consent to the collection of my personal information for security analysis
+            </label>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" name="consent2" required>
+                I consent to the analysis of my social media handles and usernames
+            </label>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" name="consent3" required>
+                I understand that my data will be stored ONLY on this device
+            </label>
+            
+            <label class="checkbox-label">
+                <input type="checkbox" name="consent4" required>
+                I understand this is for educational demonstration purposes ONLY
+            </label>
+            
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">✓ Accept All & Continue</button>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">✗ Decline</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

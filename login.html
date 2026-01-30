@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="lock-icon">🔐</div>
+            <h2>Authentication</h2>
+        </div>
+        
+        {% if not show_otp %}
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('login')">Login</button>
+            <button class="tab-btn" onclick="showTab('signup')">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form" method="POST" action="{{ url_for('login') }}" class="tab-content active">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Master Password</label>
+                <input type="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        
+        <!-- Signup Form -->
+        <form id="signup-form" method="POST" action="{{ url_for('signup') }}" class="tab-content">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Master Password (min 8 characters)</label>
+                <input type="password" name="password" required minlength="8">
+            </div>
+            
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+        
+        <p class="warning">⚠️ Use a strong master password - it protects all your data!</p>
+        
+        {% else %}
+        <!-- OTP Form -->
+        <form method="POST" action="{{ url_for('verify_otp') }}">
+            <div class="form-group">
+                <label>Enter 6-Digit OTP</label>
+                <input type="text" name="otp" required maxlength="6" pattern="[0-9]{6}" 
+                       placeholder="000000" autofocus>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Verify OTP</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    
+    event.target.classList.add('active');
+    document.getElementById(tab + '-form').classList.add('active');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tool-container">
+    <header class="tool-header">
+        <a href="{{ url_for('dashboard') }}" class="btn-back">← Back to Dashboard</a>
+        <h1>✨ Strong Password Generator</h1>
+    </header>
+    
+    <div class="tool-card">
+        <p class="tool-description">Generate cryptographically secure passwords that are safe from attacks.</p>
+        
+        <div class="generator-content">
+            <pre class="result-text success-text">{{ passwords }}</pre>
+        </div>
+        
+        <form method="POST" action="{{ url_for('generate_passwords') }}">
+            <button type="submit" class="btn btn-primary btn-block">
+                🔄 Generate New Passwords
+            </button>
+        </form>
+        
+        <div class="info-box success">
+            <h4>💡 How to Use These Passwords</h4>
+            <ol>
+                <li>Choose one password that resonates with you</li>
+                <li>Use a password manager to store it securely</li>
+                <li>Practice typing it a few times</li>
+                <li>Never reuse the same password across sites</li>
+                <li>Enable 2FA (Two-Factor Authentication) wherever possible</li>
+            </ol>
+            <p><strong>Tip:</strong> Passphrase-style passwords are easier to remember while still being very secure!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

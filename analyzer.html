@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tool-container">
+    <header class="tool-header">
+        <a href="{{ url_for('dashboard') }}" class="btn-back">← Back to Dashboard</a>
+        <h1>🔍 Password Analyzer</h1>
+    </header>
+    
+    <div class="tool-card">
+        <p class="tool-description">Enter a password to analyze its security and check for personal information.</p>
+        
+        <form id="analyzerForm" onsubmit="analyzePassword(event)">
+            <div class="form-group">
+                <label>Enter Password to Analyze</label>
+                <div class="password-input-group">
+                    <input type="password" id="passwordInput" placeholder="Enter password..." required>
+                    <button type="button" class="btn-toggle" onclick="togglePassword()">👁️</button>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="analyzeBtn">
+                Analyze Password
+            </button>
+        </form>
+        
+        <div id="resultContainer" class="result-container" style="display: none;">
+            <h3>Analysis Results</h3>
+            <pre id="resultText" class="result-text"></pre>
+        </div>
+        
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing password...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function togglePassword() {
+    const input = document.getElementById('passwordInput');
+    const btn = event.target;
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+    }
+}
+
+async function analyzePassword(event) {
+    event.preventDefault();
+    
+    const password = document.getElementById('passwordInput').value;
+    const loading = document.getElementById('loading');
+    const resultContainer = document.getElementById('resultContainer');
+    const resultText = document.getElementById('resultText');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    
+    // Show loading
+    loading.style.display = 'block';
+    resultContainer.style.display = 'none';
+    analyzeBtn.disabled = true;
+    
+    try {
+        const formData = new FormData();
+        formData.append('password', password);
+        
+        const response = await fetch('{{ url_for("analyze") }}', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            alert(data.error);
+        } else {
+            resultText.textContent = data.result;
+            resultContainer.style.display = 'block';
+        }
+    } catch (error) {
+        alert('Error analyzing password: ' + error.message);
+    } finally {
+        loading.style.display = 'none';
+        analyzeBtn.disabled = false;
+    }
+}
+</script>
+{% endblock %}
