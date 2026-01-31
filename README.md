@@ -1,4 +1,4 @@
-# 🔐 Personal-Aware Password Security Advisor
+# 🔐 Personal-Aware Password Security Advisor (Ongoing Project)
 
 **An enterprise-grade web application that analyzes passwords for personal information vulnerabilities and demonstrates modern cybersecurity concepts through practical implementation.**
 
